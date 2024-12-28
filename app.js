@@ -1,5 +1,5 @@
 const express = require("express");
-const mysql = require("mysql");
+// const mysql = require("mysql");
 const bodyParser = require("body-parser");
 const path = require("path");
 const { v4: uuidv4 } = require("uuid");
@@ -35,14 +35,14 @@ app.get("/", (req, res) => {
 });
 
 // Create a table
-app.get("/createTable", (req, res) => {
-  let sql =
-    "CREATE TABLE IF NOT EXISTS items(id int AUTO_INCREMENT, name VARCHAR(255), PRIMARY KEY(id))";
-  db.query(sql, (err, result) => {
-    if (err) throw err;
-    res.send("Items table created...");
-  });
-});
+// app.get("/createTable", (req, res) => {
+//   let sql =
+//     "CREATE TABLE IF NOT EXISTS items(id int AUTO_INCREMENT, name VARCHAR(255), PRIMARY KEY(id))";
+//   db.query(sql, (err, result) => {
+//     if (err) throw err;
+//     res.send("Items table created...");
+//   });
+// });
 
 // Insert an item
 app.post("/addItem", (req, res) => {
@@ -105,13 +105,13 @@ app.put("/updateItem/:id", (req, res) => {
 });
 
 // Delete an item
-app.delete("/deleteItem/:id", (req, res) => {
-  let sql = `DELETE FROM items WHERE id = ?`;
-  db.query(sql, [req.params.id], (err, result) => {
-    if (err) throw err;
-    res.send("Item deleted...");
-  });
-});
+// app.delete("/deleteItem/:id", (req, res) => {
+//   let sql = `DELETE FROM items WHERE id = ?`;
+//   db.query(sql, [req.params.id], (err, result) => {
+//     if (err) throw err;
+//     res.send("Item deleted...");
+//   });
+// });
 
 app.listen(port, () => {
   console.log(`Server started on port ${port}`);
