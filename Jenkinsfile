@@ -8,8 +8,8 @@ pipeline {
     environment {
         SCANNER_HOME = tool 'sonar-scanner'
         SONAR_TOKEN = credentials('SONAR_TOKEN')
-        SONAR_ORGANIZATION = 'pipe-line'
-        SONAR_PROJECT_KEY = 'taibuharoub_jenkins-pipeline'
+        SONAR_ORGANIZATION = 'target-technology'
+        SONAR_PROJECT_KEY = 'target-technology_jenkins'
     }
 
     stages {
@@ -18,8 +18,8 @@ pipeline {
             steps {
                 withSonarQubeEnv('SonarCloud') {
                     sh '''$SCANNER_HOME/bin/sonar-scanner \
-  -Dsonar.organization=pipe-line \
-  -Dsonar.projectKey=taibuharoub_jenkins-pipeline \
+  -Dsonar.organization=target-technology \
+  -Dsonar.projectKey=target-technology_jenkins \
   -Dsonar.sources=. \
   -Dsonar.host.url=https://sonarcloud.io '''
                 }
@@ -31,7 +31,7 @@ pipeline {
        stage('Docker Build And Push') {
             steps {
                 script {
-                    docker.withRegistry('', 'docker-cred') {
+                    docker.withRegistry('', 'DOCKER_CRED') {
                         def buildNumber = env.BUILD_NUMBER ?: '1'
                         def image = docker.build("ty100/devops-project-2:latest")
                         image.push()
